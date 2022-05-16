@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/style.css" />
+    <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
+</head>
+<body>
+<div id="replaycontent">
+</div>
+</body>
+<script>
+  window.onload = function () {
+    fetch(`http://172.19.36.15:8000/getData`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: '1',
+        startTime: 1643267785427
+      })
+    }).then((result) => {
+      result.json().then((res) => {
+        new rrwebPlayer({
+          target: document.getElementById("replaycontent"), // 可以自定义 DOM 元素
+          data: {
+            events: JSON.parse(res.result.events),
+          },
+        });
+      })
+    });
+  }
+
+</script>
+</html>
